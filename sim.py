@@ -11,7 +11,7 @@ import vtk
 # A: ================================================ CODE INPUTS ============================================
 
 # A1: python script directory
-script_dir = '/Desktop/SimVasSim'
+script_dir = os.path.realpath('/Desktop/SimVasSim')
 
 # A2: input files directory
 # input_dir = os.path.join(script_dir,'input')
