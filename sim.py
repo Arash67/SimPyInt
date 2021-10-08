@@ -11,14 +11,16 @@ import vtk
 # A: ================================================ CODE INPUTS ============================================
 
 # A1: python script directory
-script_dir = '/Desktop/SimVascular/GeneralizedCoAmodel/PyInterface/Example01'
+script_dir = '/Desktop/SimVasSim'
 
 # A2: input files directory
-input_dir = os.path.join(script_dir,'input')
+# input_dir = os.path.join(script_dir,'input')
+input_dir = script_dir
 print(input_dir)
 
 # A3: output file directory
-output_dir = os.path.join(script_dir,'output')
+# output_dir = os.path.join(script_dir,'output')
+output_dir = script_dir
 print(output_dir)
 
 # A4: inlet/outlet face names
@@ -77,9 +79,9 @@ solution_params.time_step = 0.0005
 solution_params.num_time_steps = 660
 
 # J: ======================================== WRITE SOLVER INPUT FILES =======================================
-script_dir = '/Desktop/SimVascular/GeneralizedCoAmodel/PyInterface/Example01/simulation.py'
-script_path = Path(os.path.realpath(script_dir)).parent
-output_dir = str(script_path / 'output')
+#script_dir = '/Desktop/SimVascular/GeneralizedCoAmodel/PyInterface/Example01/simulation.py'
+#script_path = Path(os.path.realpath(script_dir)).parent
+#output_dir = str(script_path / 'output')
 rom_simulation.write_input_file(model_order=1, model=model_params, mesh=mesh_params, fluid=fluid_props, material=material, boundary_conditions=bcs, solution=solution_params, directory=output_dir)
 
 
