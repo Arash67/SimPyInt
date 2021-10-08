@@ -1,6 +1,8 @@
 #!/usr/bin/env python3
-
+# ===================================================== GENERAL ===============================================
 # this code is developed to tune BC parameters to match target in the output using SimVascular 1D solver 
+# create and complete 3D simulation for the initial geometry you want to start with to make sure all files that are needed are already available
+
 
 import os
 from pathlib import Path
@@ -10,7 +12,13 @@ import vtk
 
 # A: ================================================ CODE INPUTS ============================================
 
-# A1: python script directory
+# A0: get the home directory
+home = str(Path.home())
+print(home)
+# A1: aorta path directory
+path_full_name = home + "\SimVascular\GenModel\Paths\P01AO.pth"
+print(path_full_name)
+
 script_dir = os.path.realpath('/Desktop/SimVasSim')
 
 # A2: input files directory
