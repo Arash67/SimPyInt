@@ -17,6 +17,8 @@
 #               Transverse arch hypoplasia          (TAH)
 #               Aortic isthmus hypoplasia           (AIH)
 #               coarctation of the aorta            (CoA)
+#               Ascending aorta dilation            (AAD)
+#               Left aortic arch                    (LAA)
 
 # B:======================================================= START
 
@@ -111,13 +113,14 @@ LS_seg_num                  = LS_seg_series.get_num_segmentations(time)
 
 # D3: scale segmentations
 # D3a: global scaling 
-gscale                      = 1  
+gscale                      = 1.0
 
 # D3b: local radial scaling: here each segment is scaled by multiplying its radius by a scale factor between 0 and 1
 normal_scale                         = [1.00,1.00,1.00,1.00,1.00,1.00,1.00,1.00,1.00,1.00,1.00,1.00,1.00,1.00,1.00,1.00,1.00,1.00,1.00,1.00,1.00,1.00,1.00,1.00,1.00]
-AA_dilation_scale_                   = [1.00,1.00,1.00,1.00,1.00,1.00,1.00,1.00,1.00,1.00,1.00,1.00,1.00,1.00,1.00,1.00,1.00,1.00,1.00,1.00,1.00,1.00,1.00,1.00,1.00]
-TAH_scale                            = [1.00,1.00,1.00,1.00,1.00,1.00,1.00,1.00,1.00,1.00,1.00,1.00,1.00,1.00,1.00,1.00,1.00,1.00,1.00,1.00,1.00,1.00,1.00,1.00,1.00]
-AIH_scale                            = [1.00,1.00,1.00,1.00,1.00,1.00,1.00,1.00,1.00,1.00,1.00,1.00,1.00,1.00,1.00,1.00,1.00,1.00,1.00,1.00,1.00,1.00,1.00,1.00,1.00]
+AAD_scale                            = [1.00,1.00,1.05,1.11,1.21,1.23,1.20,1.13,1.08,1.04,1.00,0.96,0.91,0.85,0.62,0.49,0.58,0.76,0.88,0.99,1.00,1.00,1.00,1.00,1.00]
+LAA_scale                            = [1.00,1.00,1.03,1.10,1.19,1.22,1.17,1.14,1.09,1.07,1.00,0.95,0.90,0.83,0.59,0.49,0.58,0.76,0.88,0.99,1.00,1.00,1.00,1.00,1.00]
+TAH_scale                            = [1.00,1.00,1.00,1.00,1.00,1.00,1.00,0.93,0.75,0.70,0.88,0.91,0.92,0.85,0.62,0.49,0.58,0.76,0.88,0.99,1.00,1.00,1.00,1.00,1.00]
+AIH_scale                            = [1.00,1.00,1.00,1.00,1.00,1.00,1.00,1.00,0.99,0.96,0.87,0.82,0.73,0.69,0.62,0.49,0.58,0.76,0.88,0.99,1.00,1.00,1.00,1.00,1.00]
 CoA_scale                            = [1.00,1.00,1.00,1.00,1.00,1.00,1.00,1.00,1.00,1.00,1.00,0.96,0.91,0.85,0.62,0.49,0.58,0.76,0.88,0.99,1.00,1.00,1.00,1.00,1.00]
 
 # D3c: applying changes to segmentations
@@ -135,12 +138,14 @@ for sid in list(range(AO_seg_num)):
     curr_center         = curr_seg.get_center()
     curr_radius         = curr_seg.get_radius()
     # scale factors for radius and center coordinates of each segment
-    curr_radius_scale   = global_scale*local_scale[sid]
+    curr_radius_scale   = global_scale
+    curr_radius_scale   = curr_radius_scale*local_scale[sid]
+    
     curr_center_scale   = global_scale
     # update center and radius values and implement them to the current segment 
     curr_radius         = curr_radius*curr_radius_scale
     curr_seg.set_radius(curr_radius)
-    curr_center         = curr_center*curr_center_scale      
+    curr_center         = [element * curr_center_scale for element in curr_center]      
     curr_seg.set_center(curr_center)
 
     #print(curr_center)
